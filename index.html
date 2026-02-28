@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gourmet Finder Pro</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div id="home-screen">
+            <header>
+                <div class="brand-logo">🍽️</div>
+                <h1>Gourmet Finder</h1>
+                <p>Präzise Rezepte für Laptop & Handy</p>
+            </header>
+
+            <div class="main-selection">
+                <div class="hero-card kochen" onclick="openApp('kochen')">
+                    <div class="card-content">
+                        <h2>Kochen</h2>
+                        <p>Herzhafte Gerichte</p>
+                    </div>
+                </div>
+                <div class="hero-card backen" onclick="openApp('backen')">
+                    <div class="card-content">
+                        <h2>Backen</h2>
+                        <p>Süße Meisterwerke</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-screen" style="display: none;">
+            <div class="top-bar">
+                <button class="nav-circle-btn" onclick="goHome()">🏠</button>
+                <h2 id="mode-title">Kochen</h2>
+            </div>
+
+            <div class="search-box">
+                <div class="input-wrapper">
+                    <label>Zutaten (z.B. Mehl, Eier, Speck...)</label>
+                    <input type="text" id="zutaten" placeholder="Was hast du im Haus?" enterkeyhint="search">
+                </div>
+                <div class="button-group">
+                    <button class="btn-main" onclick="suche(true)">🔍 Finden</button>
+                    <button class="btn-sub" onclick="suche(false)">🚫 Ohne</button>
+                </div>
+            </div>
+
+            <div id="results-container" class="results-area"></div>
+        </div>
+    </div>
+
+    <div id="recipe-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="vegan-toggle-btn" class="vegan-toggle" onclick="toggleVegan()">
+                    <span class="leaf">🌱</span> <span id="toggle-text">Veggie</span>
+                </div>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
