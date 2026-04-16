@@ -1,175 +1,124 @@
-const rezepte = [
-    // --- KOCHEN ---
-    { 
-        name: "Tacos", typ: "kochen", tags: ["hackfleisch", "mais", "käse", "tacos"], 
-        zeit: "15 Min", temp: "Pfanne (hoch)",
-        zutaten: ["4 Tacos", "200g Hackfleisch", "1 Dose Mais", "100g Käse"],
-        anleitung: "1. Hackfleisch 10 Min. scharf anbraten. 2. Tacos im Ofen bei 150°C für 5 Min. wärmen. 3. Belegen.",
-        veganOption: {
-            name: "Linsen-Tacos", tags: ["linsen", "mais", "vegan", "tacos"], zeit: "20 Min", temp: "Topf & Pfanne",
-            zutaten: ["4 Tacos", "150g rote Linsen", "1 Dose Mais", "Veganer Käse"],
-            anleitung: "1. Linsen 15 Min. in Brühe kochen. 2. In der Pfanne mit Gewürzen 5 Min. anbraten. 3. Tacos füllen."
-        }
-    },
-    { 
-        name: "Spaghetti Carbonara", typ: "kochen", tags: ["pasta", "ei", "speck", "käse"], 
-        zeit: "15 Min", temp: "Pfanne & Topf",
-        zutaten: ["250g Pasta", "100g Speck", "2 Eigelb", "Parmesan"],
-        anleitung: "1. Pasta kochen. 2. Speck knusprig braten. 3. Ei mit Käse mischen und unter die warmen Pasta heben.",
-        veganOption: {
-            name: "Räuchertofu-Carbonara", tags: ["pasta", "tofu", "vegan"], zeit: "15 Min", temp: "Pfanne",
-            zutaten: ["250g Pasta", "100g Räuchertofu", "Hafersahne", "Hefeflocken"],
-            anleitung: "1. Tofu scharf anbraten. 2. Sahne und Hefeflocken für die Cremigkeit dazu."
-        }
-    },
-    { 
-        name: "Rinderrouladen", typ: "kochen", tags: ["rind", "speck", "gurke"], 
-        zeit: "120 Min", temp: "Schmoren (niedrig)",
-        zutaten: ["2 Rinderrouladen", "Speck", "Saure Gurken", "Senf", "Fond"],
-        anleitung: "1. Fleisch füllen und rollen. 2. Scharf anbraten. 3. In Fond 90 Min. schmoren.",
-        veganOption: {
-            name: "Wirsingrouladen", tags: ["wirsing", "pilze", "vegan"], zeit: "45 Min", temp: "Schmoren",
-            zutaten: ["Wirsingblätter", "Pilze", "Reis"],
-            anleitung: "Wirsing blanchieren, füllen und 25 Min. in Brühe garen."
-        }
-    },
-    { 
-        name: "Königsberger Klopse", typ: "kochen", tags: ["hack", "kapern"], 
-        zeit: "35 Min", temp: "Sieden (leicht köchelnd)",
-        zutaten: ["300g Hack", "Kapern", "Sahne"],
-        anleitung: "1. Klopse 15 Min. in Brühe ziehen lassen. 2. Weiße Soße mit Kapern binden.",
-        veganOption: {
-            name: "Tofu-Klopse", tags: ["tofu", "kapern", "vegan"], zeit: "30 Min", temp: "Sieden",
-            zutaten: ["250g Tofu", "Kapern", "Sojasahne"],
-            anleitung: "Bällchen formen und in Kapern-Sojasahne erwärmen."
-        }
-    },
-    { 
-        name: "Wiener Schnitzel", typ: "kochen", tags: ["fleisch", "panade", "zitrone"], 
-        zeit: "15 Min", temp: "Pfanne (viel Schmalz)",
-        zutaten: ["2 Schnitzel", "Eier", "Panermehl"],
-        anleitung: "Panieren und in reichlich Fett goldbraun ausbacken.",
-        veganOption: {
-            name: "Sellerieschnitzel", tags: ["sellerie", "panade", "vegan"], zeit: "20 Min", temp: "Pfanne",
-            zutaten: ["Sellerieknolle", "Panade"],
-            anleitung: "Sellerie vorkochen, panieren und braten."
-        }
-    },
-
-    // --- BACKEN ---
-    { 
-        name: "Blaubeermuffins", typ: "backen", tags: ["beeren", "mehl", "zucker"], 
-        zeit: "25 Min", temp: "180°C Umluft",
-        zutaten: ["250g Mehl", "100g Zucker", "2 Eier", "Blaubeeren"],
-        anleitung: "Teig mischen, Beeren unterheben und 20 Min. backen.",
-        veganOption: {
-            name: "Vegane Muffins", tags: ["beeren", "vegan"], zeit: "25 Min", temp: "180°C",
-            zutaten: ["Mehl", "Apfelmark", "Hafermilch"],
-            anleitung: "Eier durch Apfelmark ersetzen."
-        }
-    },
-    { 
-        name: "Zitronenkuchen", typ: "backen", tags: ["zitrone", "zucker"], 
-        zeit: "50 Min", temp: "175°C Ober/Unterhitze",
-        zutaten: ["250g Butter", "200g Zucker", "4 Eier", "2 Zitronen"],
-        anleitung: "Rührteig backen und mit Zitronenguss überziehen.",
-        veganOption: {
-            name: "Veganer Zitronenkuchen", tags: ["zitrone", "vegan"], zeit: "50 Min", temp: "175°C",
-            zutaten: ["Margarine", "Sprudelwasser", "Zitrone"],
-            anleitung: "Sprudelwasser sorgt für die Lockerheit."
-        }
-    },
-    { 
-        name: "Donauwelle", typ: "backen", tags: ["kirschen", "schoko"], 
-        zeit: "60 Min", temp: "180°C",
-        zutaten: ["Kirschen", "Mehl", "Kakao", "Buttercreme"],
-        anleitung: "Teig backen, Creme und Schokoguss schichten.",
-        veganOption: {
-            name: "Vegane Donauwelle", tags: ["kirschen", "vegan"], zeit: "60 Min", temp: "180°C",
-            zutaten: ["Veganer Teig", "Sojapudding"],
-            anleitung: "Vegane Buttercreme verwenden."
-        }
-    }
-];
-
-let aktuellerModus = '';
-let ausgewähltesRezept = null;
-let isVeganMode = false;
-
-function openApp(mode) {
-    aktuellerModus = mode;
-    document.getElementById('home-screen').style.display = 'none';
-    document.getElementById('app-screen').style.display = 'block';
-    document.getElementById('mode-title').innerText = mode === 'kochen' ? "🍳 Gourmet Küche" : "🥐 Backstube";
-    suche(true);
+:root {
+  --primary: #ff6b4a;
+  --primary-glow: rgba(255, 107, 74, 0.2);
+  --green: #27ae60;
+  --dark: #1e272e;
+  --text-dim: #576574;
+  --bg-soft: #f4f7f9;
+  --white: #ffffff;
+  --radius: 24px;
 }
 
-function goHome() {
-    document.getElementById('home-screen').style.display = 'block';
-    document.getElementById('app-screen').style.display = 'none';
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
+
+body { 
+  margin: 0; 
+  font-family: 'DM Sans', sans-serif; 
+  background-color: var(--bg-soft);
+  color: var(--dark);
+  min-height: 100vh;
 }
 
-function suche(mitZutaten) {
-    const inputStr = document.getElementById('zutaten').value.toLowerCase();
-    const meineZutaten = inputStr.split(',').map(z => z.trim()).filter(z => z !== "");
-    const container = document.getElementById('results-container');
-    container.innerHTML = "";
+.app-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
-    const ergebnisse = rezepte.filter(r => {
-        if (r.typ !== aktuellerModus) return false;
-        if (meineZutaten.length === 0) return true;
-        const hatÜbereinstimmung = meineZutaten.some(z => 
-            r.tags.some(tag => tag.includes(z)) || 
-            (r.veganOption && r.veganOption.tags.some(tag => tag.includes(z)))
-        );
-        return mitZutaten ? hatÜbereinstimmung : !hatÜbereinstimmung;
-    });
+header { text-align: center; margin-bottom: 50px; }
+.brand-logo { font-size: 4rem; color: var(--primary); margin-bottom: 10px; }
+header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin: 0; }
+header p { color: var(--text-dim); margin-top: 5px; }
 
-    ergebnisse.forEach(r => {
-        const card = document.createElement('div');
-        card.className = "recipe-card";
-        card.innerHTML = `
-            <span class="info-badge">${r.zeit}</span>
-            <h3>${r.name}</h3>
-            ${r.veganOption ? '<span style="float:right;">🌱</span>' : ''}
-        `;
-        card.onclick = () => showDetails(r);
-        container.appendChild(card);
-    });
+/* HERO CARDS */
+.main-selection { display: flex; gap: 24px; margin-top: 30px; }
+
+.hero-card { 
+  flex: 1; height: 380px; border-radius: var(--radius); cursor: pointer; position: relative; overflow: hidden; 
+  display: flex; align-items: flex-end; padding: 30px; color: white; 
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
-function showDetails(r) {
-    ausgewähltesRezept = r;
-    isVeganMode = false;
-    renderModal();
-    document.getElementById('recipe-modal').style.display = 'flex';
+.hero-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+.hero-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 }
 
-function renderModal() {
-    const r = ausgewähltesRezept;
-    const data = isVeganMode && r.veganOption ? r.veganOption : r;
-    const toggle = document.getElementById('vegan-toggle-btn');
-    const body = document.getElementById('modal-body');
+.card-content { position: relative; z-index: 2; }
+.hero-card h2 { font-size: 2rem; margin: 0; }
+.hero-card p { opacity: 0.8; margin: 5px 0 0; font-size: 0.9rem; }
 
-    toggle.style.display = r.veganOption ? 'flex' : 'none';
-    toggle.className = isVeganMode ? 'vegan-toggle active' : 'vegan-toggle';
-    document.getElementById('toggle-text').innerText = isVeganMode ? "Veggie-Modus" : "Standard-Modus";
+.hero-card.kochen { background: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800') center/cover; }
+.hero-card.backen { background: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800') center/cover; }
 
-    body.innerHTML = `
-        <h2 style="margin-top:0;">${data.name}</h2>
-        <div style="margin-bottom: 15px;">
-            <span class="info-badge">🕒 ${data.zeit}</span>
-            <span class="info-badge">🔥 ${data.temp}</span>
-        </div>
-        <div class="zutaten-box">
-            <strong>Zutaten:</strong>
-            <ul style="margin-top:10px; padding-left:20px;">${data.zutaten.map(z => `<li>${z}</li>`).join('')}</ul>
-        </div>
-        <strong>Schritte:</strong>
-        <p style="line-height:1.6; padding: 15px; background:#fffde7; border-radius:12px;">${data.anleitung}</p>
-    `;
+/* NAVIGATION */
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
+.nav-circle-btn { 
+  width: 50px; height: 50px; border-radius: 50%; background: var(--white); 
+  border: none; cursor: pointer; font-size: 1.2rem; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s;
+}
+.nav-circle-btn:hover { background: var(--primary); color: white; }
+
+/* SEARCH BOX */
+.search-box { 
+  background: var(--white); padding: 30px; border-radius: var(--radius); 
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 40px; 
+}
+.input-wrapper label { display: block; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; color: var(--text-dim); }
+.input-wrapper label i { color: var(--primary); margin-right: 5px; }
+
+input { 
+  width: 100%; padding: 18px 24px; border: 2px solid #f1f3f5; 
+  border-radius: 18px; font-size: 1rem; transition: 0.3s; background: #f8f9fa;
+}
+input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-glow); }
+
+.button-group { display: flex; gap: 12px; margin-top: 20px; }
+.btn-main { flex: 2; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 18px; font-weight: 700; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+.btn-sub { flex: 1; background: #f1f3f5; color: var(--text-dim); border: none; padding: 18px; border-radius: 18px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.btn-main:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+/* RECIPE CARDS */
+.results-area { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.recipe-card { 
+  background: var(--white); padding: 25px; border-radius: var(--radius); 
+  cursor: pointer; transition: 0.3s; border: 1px solid transparent; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.02); position: relative;
+}
+.recipe-card:hover { transform: translateY(-5px); border-color: var(--primary-glow); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+.recipe-card h3 { margin: 10px 0 0; font-family: 'Playfair Display', serif; }
+
+.info-badge { 
+  background: var(--primary-glow); color: var(--primary); 
+  padding: 5px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700;
 }
 
-function toggleVegan() { isVeganMode = !isVeganMode; renderModal(); }
-function closeModal() { document.getElementById('recipe-modal').style.display = 'none'; }
-window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); };
+/* MODAL */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.modal-content { 
+  background: var(--white); padding: 35px; border-radius: 32px; width: 100%; 
+  max-width: 550px; max-height: 85vh; overflow-y: auto; position: relative;
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.close-modal { font-size: 1.5rem; cursor: pointer; color: var(--text-dim); }
+
+.vegan-toggle { 
+  display: flex; align-items: center; gap: 8px; background: #f1f3f5; 
+  padding: 8px 18px; border-radius: 15px; cursor: pointer; font-weight: 700; font-size: 0.85rem;
+}
+.vegan-toggle.active { background: var(--green); color: white; }
+
+.zutaten-box { 
+  background: #fdfdfd; padding: 20px; border-radius: 20px; 
+  border: 1px solid #f1f3f5; border-left: 5px solid var(--primary); margin: 20px 0; 
+}
+.anleitungs-box { 
+  line-height: 1.7; padding: 20px; background: #fffcf9; 
+  border-radius: 20px; border: 1px dashed var(--primary-glow); 
+}
+
+@media (max-width: 600px) {
+  .main-selection { flex-direction: column; }
+  header h1 { font-size: 2.2rem; }
+  .hero-card { height: 200px; }
+}
